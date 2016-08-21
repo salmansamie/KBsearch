@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="580.0" prefHeight="600.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.sample.view.HomeController">
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="signout" alignment="TOP_CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onclickSignout" prefHeight="22.0" prefWidth="69.0" style="-fx-background-radius: 14;" text="Sign out" textFill="#b50c0c" />
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <VBox alignment="TOP_CENTER" prefHeight="67.0" prefWidth="580.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
