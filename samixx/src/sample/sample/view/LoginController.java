@@ -32,21 +32,18 @@ public class LoginController {
     Button LoginButton;
 
     @FXML
-    Text errorMessage;
+    Text errorReport;
 
     @FXML
-    void onclickLogin() throws IOException{
+    void onclickLogin() throws IOException {
 
-        try{
-            if(loginModel.isLoginValid(usernameTextField.getText(), passwordTextField.getText()) == true) {
+        try {
+            if (loginModel.isLoginValid(usernameTextField.getText(), passwordTextField.getText()) == true) {
                 Main.showHome();
+            } else {
+                errorReport.setText("Invalid Username or Password. Try again.");
             }
-            else{
-                errorMessage.setText("Invalid Username or Password. Try again.");
-            }
-        }
-
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

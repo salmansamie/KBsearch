@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-
-
-<BorderPane minHeight="600.0" minWidth="580.0" prefHeight="600.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="600.0" text="ServiceNow" textFill="#c30e0e">
-               <font>
-                  <Font name="Arial" size="30.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="600.0" text="Cloud Operations" textFill="#807878">
-               <font>
-                  <Font name="Arial Bold" size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-   </top>
+<?import javafx.scene.text.Font?>
+<BorderPane minHeight="600.0" minWidth="580.0" prefHeight="600.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <AnchorPane prefHeight="100.0" prefWidth="34.0"/>
+                        <VBox prefHeight="100.0" prefWidth="547.0">
+                            <children>
+                                <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" prefHeight="62.0"
+                                       prefWidth="547.0" text="ServiceNow" textFill="#c30e0e">
+                                    <font>
+                                        <Font name="Arial Bold" size="22.0"/>
+                                    </font>
+                                </Label>
+                                <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="547.0"
+                                       text="Cloud Operations Intern" textFill="#807878">
+                                    <font>
+                                        <Font name="Arial" size="15.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
 </BorderPane>

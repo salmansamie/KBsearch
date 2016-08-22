@@ -16,18 +16,18 @@ public class LoginModel {
 
     Connection connection;
 
-    public LoginModel(){
+    public LoginModel() {
 
         connection = DbConnection.LoginConnector();
 
-        if (connection == null){
+        if (connection == null) {
             System.out.println("Database connection error");
             System.exit(1);
         }
     }
 
 
-    public boolean isLoginValid(String username, String password) throws SQLException{
+    public boolean isLoginValid(String username, String password) throws SQLException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -40,19 +40,10 @@ public class LoginModel {
 
             resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-
-        catch (Exception e){
+            return resultSet.next();
+        } catch (Exception e) {
             return false;
-        }
-
-        finally {
+        } finally {
             preparedStatement.close();
             resultSet.close();
         }

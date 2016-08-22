@@ -11,14 +11,13 @@ import java.sql.DriverManager;
  */
 
 public class DbConnection {
-    public static Connection LoginConnector(){
-        try{
+    @SuppressWarnings("ThrowablePrintedToSystemOut")
+    public static Connection LoginConnector() {
+        try {
             Class.forName("org.sqlite.JDBC");
             Connection connect = DriverManager.getConnection("jdbc:sqlite:Web Data");
             return connect;
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }
