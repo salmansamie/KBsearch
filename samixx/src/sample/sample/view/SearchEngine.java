@@ -21,7 +21,7 @@ public class SearchEngine {
     }
 
     //getters
-    public String getSEName() {
+    public String getShort_name() {
         return short_name;
     }
 
@@ -29,12 +29,12 @@ public class SearchEngine {
         return keyword;
     }
 
-    public String getQuery() {
+    public String getUrl() {
         return url;
     }
 
     //setters
-    public void setSEName(String short_name) {
+    public void setShort_name(String short_name) {
         this.short_name = short_name;
     }
 
@@ -42,7 +42,7 @@ public class SearchEngine {
         this.keyword = keyword;
     }
 
-    public void setQuery(String url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
