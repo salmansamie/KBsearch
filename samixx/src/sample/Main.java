@@ -26,8 +26,8 @@ public class Main extends Application {
         Main.stage = primaryStage;
         Main.stage.setTitle("samixx");
         //stage.setMaximized(true);   //for full screen
-        stage.setMinHeight(600);
-        stage.setMinWidth(800);
+        stage.setMinHeight(500);
+        stage.setMinWidth(600);
         Main.showMain();
         Main.showLogin();
 
@@ -39,6 +39,7 @@ public class Main extends Application {
         mainLayout = loader.load();
         Scene scene = new Scene(mainLayout);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
