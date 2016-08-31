@@ -9,11 +9,11 @@
         <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="41.0" prefWidth="558.0">
             <items>
                 <Button fx:id="signout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onclickSignout" prefHeight="27.0" prefWidth="77.0" style="-fx-background-radius: 14;" text="Sign out" textFill="#b50c0c" />
-                <Button fx:id="editKeyword" alignment="CENTER" mnemonicParsing="false" style="-fx-background-radius: 14;" text="Edit Keyword" />
+                <Button fx:id="editKeyword" alignment="CENTER" mnemonicParsing="false" onAction="#updateEngine" style="-fx-background-radius: 14;" text="Edit Engine" />
                 <Button fx:id="addKeyword" alignment="CENTER" mnemonicParsing="false" onAction="#AddNewEngine" prefHeight="27.0" prefWidth="89.0" style="-fx-background-radius: 14;" text="Add Engine" />
                 <Button fx:id="deleteKeyword" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEngine" style="-fx-background-radius: 14;" text="Remove Engine" />
                 <Pane prefHeight="29.0" prefWidth="110.0" />
-                <TextField fx:id="searchSamix" prefHeight="27.0" prefWidth="254.0" promptText="search samix..." style="-fx-background-radius: 14;" />
+                <TextField fx:id="searchIdSamix" onInputMethodTextChanged="#systemSearch" onKeyPressed="#systemSearch" onKeyReleased="#systemSearch" prefHeight="27.0" prefWidth="254.0" promptText="search samix..." style="-fx-background-radius: 14;" />
             </items>
         </ToolBar>
     </top>
