@@ -49,6 +49,12 @@ public class HomeController implements Initializable {
         String query = "SELECT * FROM keywords";
 
         try {
+
+            engineBox.clear();
+            keywordBox.clear();
+            queryBox.clear();
+            data.clear();
+
             preparedStatement = connection.prepareStatement(query);
             rs = preparedStatement.executeQuery();
 
@@ -122,19 +128,18 @@ public class HomeController implements Initializable {
         preparedStatement = null;
         rs = null;
 
+        String tempStorage = null;
         try {
+            tempStorage = engineBox.getText();
             preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setString(1, engineBox.getText() );
             preparedStatement.setString(2, keywordBox.getText() );
             preparedStatement.setString(3, queryBox.getText() );
-
         }
-
         catch (SQLException e) {
             System.out.println(e);
         }
-
         finally {
             preparedStatement.execute();
             preparedStatement.close();
@@ -142,21 +147,58 @@ public class HomeController implements Initializable {
             engineBox.clear();
             keywordBox.clear();
             queryBox.clear();
-
             data.clear();
+
             loadData();
         }
 
-        Main.showInformationAlertBox("New Search Engine '"+keywordBox.getText()+"' has been saved successfully.");
+        Main.showInformationAlertBox("New Search Engine '"+tempStorage+"' has been saved successfully.");
 
     }
 
-    /*public void showMeDelete(){
+    public void importToBoxes(){
         try{
-            SearchEngine searchEngine = (SearchEngine)table.getSelectionModel() . getSelectedItem());
+            SearchEngine searchEngine = (SearchEngine)table.getSelectionModel().getSelectedItem();
 
             String query = "SELECT * FROM keywords";
+            preparedStatement = connection.prepareStatement(query);
+
+            engineBox.setText(searchEngine.getShort_name());
+            keywordBox.setText(searchEngine.getKeyword());
+            queryBox.setText(searchEngine.getUrl());
+
+            preparedStatement.close();
+            rs.close();
         }
 
-    }*/
+        catch (SQLException e){
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    public void deleteEngine(){
+        String tempStorage = null;
+
+        try{
+            tempStorage = engineBox.getText();
+            SearchEngine searchEngine = (SearchEngine)table.getSelectionModel().getSelectedItem();
+            String query = "DELETE FROM keywords WHERE short_name=?";
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, searchEngine.getShort_name());
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            rs.close();
+
+            loadData();
+        }
+        catch (SQLException e){
+            System.out.println(e);
+        }
+
+        loadData();
+        Main.showInformationAlertBox("Engine '"+ tempStorage +"' has been deleted.");
+    }
 }
