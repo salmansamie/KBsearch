@@ -20,7 +20,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 /**
  * samixx project
@@ -33,7 +32,7 @@ public class HomeController implements Initializable {
     Connection connection = DbConnection.LoginConnector();
 
     ObservableList<SearchEngine> data = FXCollections.observableArrayList();
-    FilteredList<SearchEngine> filteredData = new FilteredList<>(data, e->true);
+    FilteredList<SearchEngine> filteredData = new FilteredList<>(data, e -> true);
 
     PreparedStatement preparedStatement = null;
     ResultSet rs = null;
@@ -135,15 +134,13 @@ public class HomeController implements Initializable {
             tempStorage = engineBox.getText();
             preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, engineBox.getText() );
-            preparedStatement.setString(2, keywordBox.getText() );
-            preparedStatement.setString(3, queryBox.getText() );
-        }
-        catch (SQLException e) {
+            preparedStatement.setString(1, engineBox.getText());
+            preparedStatement.setString(2, keywordBox.getText());
+            preparedStatement.setString(3, queryBox.getText());
+        } catch (SQLException e) {
             System.out.println(e);
-        }
-        finally {
-            preparedStatement.execute();
+        } finally {
+            preparedStatement.executeUpdate();
             preparedStatement.close();
 
             engineBox.clear();
@@ -154,16 +151,16 @@ public class HomeController implements Initializable {
             loadData();
         }
 
-        Main.showInformationAlertBox("New Search Engine '"+tempStorage+"' has been saved successfully.");
+        Main.showInformationAlertBox("New Search Engine '" + tempStorage + "' has been saved successfully.");
 
     }
 
     static String tempStorage;
 
     @FXML
-    public void importToBoxes(){
-        try{
-            SearchEngine searchEngine = (SearchEngine)table.getSelectionModel().getSelectedItem();
+    public void importToBoxes() {
+        try {
+            SearchEngine searchEngine = table.getSelectionModel().getSelectedItem();
 
             String query = "SELECT * FROM keywords";
             preparedStatement = connection.prepareStatement(query);
@@ -175,19 +172,17 @@ public class HomeController implements Initializable {
 
             preparedStatement.close();
             rs.close();
-        }
-
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     @FXML
-    public void deleteEngine(){
+    public void deleteEngine() {
 
-        try{
+        try {
             tempStorage = engineBox.getText();
-            SearchEngine searchEngine = (SearchEngine)table.getSelectionModel().getSelectedItem();
+            SearchEngine searchEngine = table.getSelectionModel().getSelectedItem();
             String query = "DELETE FROM keywords WHERE short_name=?";
 
             preparedStatement = connection.prepareStatement(query);
@@ -198,63 +193,59 @@ public class HomeController implements Initializable {
             rs.close();
 
             loadData();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
 
         loadData();
-        Main.showInformationAlertBox("Engine '"+ tempStorage +"' has been deleted.");
+        Main.showInformationAlertBox("Engine '" + tempStorage + "' has been deleted.");
     }
 
 
-    public void updateEngine(){
-        String query = "UPDATE keywords set short_name=?, keyword=?, url=? WHERE short_name='"+tempStorage+"'";
-        try{
+    public void updateEngine() {
+        String query = "UPDATE keywords set short_name=?, keyword=?, url=? WHERE short_name='" + tempStorage + "'";
+        try {
             preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setString(1, engineBox.getText());
             preparedStatement.setString(2, keywordBox.getText());
             preparedStatement.setString(3, queryBox.getText());
 
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
             preparedStatement.close();
 
-            Main.showInformationAlertBox("Engine "+tempStorage+" has been changed and saved.");
+            Main.showInformationAlertBox("Engine " + tempStorage + " has been changed and saved.");
             loadData();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
 
     @FXML
-    public void systemSearch(){
+    public void systemSearch() {
         loadData();
-        searchIdSamix.textProperty().addListener((observableValue, oldValue, newValue) ->{
-            filteredData.setPredicate((Predicate<? super SearchEngine>) searchEng->{
+        searchIdSamix.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            filteredData.setPredicate(searchEng -> {
 
-                if (newValue == null || newValue.isEmpty()){
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (searchEng.getShort_name().toLowerCase().contains(lowerCaseFilter)){
+                if (searchEng.getShort_name().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                }
-
-                else if (searchEng.getShort_name().toLowerCase().contains(lowerCaseFilter)){
+                } else if (searchEng.getUrl().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (searchEng.getKeyword().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false;
             });
-
         });
         SortedList<SearchEngine> sortedData = new SortedList<SearchEngine>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
         table.setItems(sortedData);
     }
-
 
 }
